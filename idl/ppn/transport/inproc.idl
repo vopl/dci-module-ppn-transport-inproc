@@ -13,7 +13,7 @@ scope ppn::transport::inproc
 
     interface Acceptor  : acceptor::Downstream
     {
-        in bind(Address) -> void;
+        in bind(Address) -> none;
     }
 
     exception BadAddress            : Error{}

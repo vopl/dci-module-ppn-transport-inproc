@@ -44,18 +44,18 @@ namespace dci::module::ppn::transport::inproc
         {
             if(_started)
             {
-                return cmt::readyFuture<void>(exception::buildInstance<api::AlreadyBound>("unable to bind after acceptor started"));
+                return cmt::readyFuture<None>(exception::buildInstance<api::AlreadyBound>("unable to bind after acceptor started"));
             }
 
             using namespace std::literals;
             if("inproc"sv != utils::net::url::scheme(address.value))
             {
-                return cmt::readyFuture<void>(exception::buildInstance<api::BadAddress>());
+                return cmt::readyFuture<None>(exception::buildInstance<api::BadAddress>());
             }
 
             _address = std::move(address);
             methods()->addressChanged(_address);
-            return cmt::readyFuture<void>();
+            return cmt::readyFuture(None{});
         };
 
         //in start();
