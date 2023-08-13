@@ -9,7 +9,6 @@
 #include "connector.hpp"
 #include "acceptor.hpp"
 #include "channelBridge.hpp"
-#include <dci/utils/net/url.hpp>
 
 namespace dci::module::ppn::transport::inproc
 {
@@ -44,8 +43,7 @@ namespace dci::module::ppn::transport::inproc
         //in connect(Address) -> Channel;
         methods()->connect() += sol() * [](const apit::Address& address) -> cmt::Future<apit::Channel<>>
         {
-            using namespace std::literals;
-            if("inproc"sv != utils::net::url::scheme(address.value))
+            if(!utils::uri::valid<utils::uri::Inproc<>>(address.value))
             {
                 return cmt::readyFuture<apit::Channel<>>(exception::buildInstance<api::BadAddress>());
             }

@@ -7,7 +7,7 @@
 
 #include "pch.hpp"
 #include "acceptor.hpp"
-#include <dci/utils/net/url.hpp>
+#include <dci/utils/uri.hpp>
 
 namespace dci::module::ppn::transport::inproc
 {
@@ -48,7 +48,7 @@ namespace dci::module::ppn::transport::inproc
             }
 
             using namespace std::literals;
-            if("inproc"sv != utils::net::url::scheme(address.value))
+            if(!utils::uri::valid<utils::uri::Inproc<>>(address.value))
             {
                 return cmt::readyFuture<None>(exception::buildInstance<api::BadAddress>());
             }

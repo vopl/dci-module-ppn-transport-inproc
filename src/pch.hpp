@@ -9,6 +9,7 @@
 
 #include <dci/host.hpp>
 #include <dci/cmt/task/owner.hpp>
+#include <dci/utils/uri.hpp>
 #include "ppn/transport/inproc.hpp"
 
 namespace dci::module::ppn::transport::inproc
